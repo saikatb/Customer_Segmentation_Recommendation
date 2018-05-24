@@ -187,149 +187,10 @@ plt.title('Correlation between features');
 
 
 
-```python
-# Normalize the Data
-Supermarket_Norm = (Supermarket - Supermarket.mean()) / Supermarket.std()
-Supermarket_Norm.head()
-```
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Cust_id</th>
-      <th>AVG_Actual_price_12</th>
-      <th>Purchase_Value</th>
-      <th>No_of_Items</th>
-      <th>Total_Discount</th>
-      <th>MONTH_SINCE_LAST_TRANSACTION</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-1.691980</td>
-      <td>-1.246783</td>
-      <td>-0.537551</td>
-      <td>-0.335397</td>
-      <td>-0.356103</td>
-      <td>1.675654</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-1.688599</td>
-      <td>-0.042357</td>
-      <td>0.611779</td>
-      <td>0.263455</td>
-      <td>0.991500</td>
-      <td>-0.850421</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-1.681837</td>
-      <td>0.461447</td>
-      <td>-0.369536</td>
-      <td>-0.435206</td>
-      <td>-0.342754</td>
-      <td>-0.289071</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-1.668312</td>
-      <td>1.004249</td>
-      <td>-0.179869</td>
-      <td>-0.385302</td>
-      <td>-0.330260</td>
-      <td>-1.131096</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-1.664931</td>
-      <td>-0.114308</td>
-      <td>0.393605</td>
-      <td>0.213551</td>
-      <td>-0.057530</td>
-      <td>0.272279</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
+A new predictor called **Selling_Price_Peritem** has been made combining **Purchase_Value** , **No_of_Items** , and **Total_Discount** 
 
 ```python
-Supermarket_Norm.drop('Cust_id',axis=1,inplace=True)
-Supermarket_Norm.head()
-```
-
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>AVG_Actual_price_12</th>
-      <th>Purchase_Value</th>
-      <th>No_of_Items</th>
-      <th>Total_Discount</th>
-      <th>MONTH_SINCE_LAST_TRANSACTION</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-1.246783</td>
-      <td>-0.537551</td>
-      <td>-0.335397</td>
-      <td>-0.356103</td>
-      <td>1.675654</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-0.042357</td>
-      <td>0.611779</td>
-      <td>0.263455</td>
-      <td>0.991500</td>
-      <td>-0.850421</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.461447</td>
-      <td>-0.369536</td>
-      <td>-0.435206</td>
-      <td>-0.342754</td>
-      <td>-0.289071</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1.004249</td>
-      <td>-0.179869</td>
-      <td>-0.385302</td>
-      <td>-0.330260</td>
-      <td>-1.131096</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-0.114308</td>
-      <td>0.393605</td>
-      <td>0.213551</td>
-      <td>-0.057530</td>
-      <td>0.272279</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-
-
-
-```python
-
-#Calculating a new predictor called "Selling_Price_Item" using predictor "Purchase_Value","Total_Discount" and "No_of_Items"
-
 Supermarket['Selling_Price_Peritem'] = (Supermarket['Purchase_Value'] + Supermarket['Total_Discount']) / Supermarket['No_of_Items']
-```
-
-```python
 Supermarket.head()
 ```
 
@@ -401,11 +262,11 @@ Supermarket.head()
 </table>
 </div>
 
+X has the values of the columns **Selling_Price_Peritem** and **MONTH_SINCE_LAST_TRANSACTION**
 
 ```python
 X = Supermarket.iloc[:,[5,6]].values
 X
-```
     array([[1.100000e+01, 3.000000e+02],
            [2.000000e+00, 7.484375e+03],
            [4.000000e+00, 3.900000e+03],
@@ -413,7 +274,7 @@ X
            [1.200000e+01, 6.500000e+02],
            [1.200000e+01, 7.500000e+03],
            [1.200000e+01, 8.300000e+03]])
-
+```
 A new dataframe has been created with a view to find out the elbow of the elbow curve. The values of the intertia of different number of clusters have been put inside an array called error and then the elbow curve is plot.
 
 df is the dataframe that has the columns with the decreasing value of inertia along with the increasing number of clusters. The motive is to find out the elbow point of the elbow curve.
@@ -510,7 +371,7 @@ df
 </table>
 </div>
 
-Below is the plot between Number of Clusters and Inertia. From the below curve it is quite evident that when you will have 3 clsuters the inertia term will drop significantly. So we will create 4 clusters and would try to plot the corresponding Cust_id in the graph.
+Below is the plot between Number of Clusters and Inertia. From the below curve it is quite evident that when you will have 4 clsuters the inertia term will drop significantly. So we will create 4 clusters and would try to plot the corresponding Cust_id in the graph.
 
 ```python
 #Find the right number of clusters
@@ -521,13 +382,8 @@ plt.plot(df.Cluster_Numbers, df.Error_Term, marker = "D", color='blue')
 plt.xlabel('Number of Clusters')
 plt.ylabel('Inertia')
 plt.show()
-
-# From the below elbow curve it can be seen that the elbow is at Cluster Number 4
 ```
-
-
 ![png](output_13_0.png)
-
 
 Below is the array of the predicted output of y_kmean after creating K means cluster of 3 clusters
 
@@ -705,6 +561,7 @@ Supermarket.head(10)
 </table>
 </div>
 
+Column **Cust_id** has been set as Index of Supermarket dataframe.
 
 ```python
 Supermarket.set_index('Cust_id',inplace=True)
@@ -839,16 +696,15 @@ Supermarket.head(10)
 </table>
 </div>
 
+The max and min of the two columns have been found to identify the x and y axis in the plot.
 
 ```python
 Supermarket['Selling_Price_Peritem'].max(), Supermarket['MONTH_SINCE_LAST_TRANSACTION'].max()
-
     (18000.0, 12)
 ```
 
 ```python
 Supermarket['Selling_Price_Peritem'].min(), Supermarket['MONTH_SINCE_LAST_TRANSACTION'].min()
-
     (50.0, 1)
 ```
 A new datframe has been made consting of Cluster Number, Customer Id, Number of Customer in that cluster, and Percentrage of the Customer in that Cluster
@@ -920,7 +776,7 @@ From the below plot below conclusions can be drawn :
 2. Only (1.85) % of customers (Spendthrifts) are repeated buyers and the buy in the higher range.
 3. (9.68 %) of customers (Avg Spenders) are more or less frequent buyers.
 
-So in order to increase ROI, sellers must concentrate on Spendthrifts and Avg Spenders and they should do the promotion of those proucts which these 2 categories of customers buy but seller should promote those products more which are consumed by Tightwads. Because at the end of the day 88.46% of the product consumption been done by these Tightwads.
+So in order to increase ROI, sellers must concentrate on **Spendthrifts** and **Avg Spenders** customer type and they should do the promotion of those proucts which these 2 categories of customers buy. At the same time seller should not forget those products more which are consumed by Tightwads. Because at the end of the day 88.46% of the product consumption been done by these Tightwads.
 
 
 ```python
