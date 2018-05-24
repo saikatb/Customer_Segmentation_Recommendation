@@ -134,10 +134,6 @@ ax[1,1].set_title('Total_Discount distribution')
 sns.distplot(Supermarket['MONTH_SINCE_LAST_TRANSACTION'],ax=ax[2,0])
 ax[2,0].set_title('MONTH_SINCE_LAST_TRANSACTION distribution')
 ```
-
-    Text(0.5,1,'MONTH_SINCE_LAST_TRANSACTION distribution')
-
-
 ![png](output_2_1.png)
 
 
@@ -153,12 +149,22 @@ import seaborn as sns
 sns.pairplot(Supermarket)
 ```
 
-    <seaborn.axisgrid.PairGrid at 0xbe548f0>
-
-
-
-
 ![png](output_3_1.png)
+
+This heat map clearly depicts some strong positive and negative correlations among several predictors. 
+
+Positive Correlations :
+
+Purchase_Value and No_of_items are highly positively correlated ( corr -> 0.89)
+No_of_items and Total_Discount are highly positively correlated ( corr -> 0.82)
+Total_Discount and Purchase_Value are positively correlated ( corr -> 0.74)
+AVG_Actual_price_12 is slightly positively correlated  with Purchase_Value (corr -> 0.019)
+
+
+Negative Correlations:
+
+MONTH_SINCE_LAST_TRANSACTION is lowly negatively correlated with Total_Discount (corr->-0.23), No_of_items (corr->-0.29) , Purchase_Value (corr->-0.31), and AVG_Actual_price_12 (corr->-0.064)
+AVG_Actual_price_12 is lowly negatively correlated with No_of_items (corr->-0.2) and Total_Discount (corr->-0.18)
 
 
 
