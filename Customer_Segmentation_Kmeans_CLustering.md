@@ -85,11 +85,10 @@ The columns are as follow :
 5.  **Total_Discount** 
 6.  **MONTH_SINCE_LAST_TRANSACTION**
 
-Purchase value ranges from 302721.4 (max) and 45.0 (min)
-Maximum number of items sold is 172 and minimum is 1 
-21.65% ( highest ) of the total customers made a repetitive purchase in 1 month and 2.85% ( lowest ) in 9 months. This is concluded from the plot
+Purchase value ranges from **302721.4 (max)** to **45.0 (min)**. Maximum number of items sold is **172** and minimum is **1**.
 
-
+**21.65% ( highest )** of the total customers made a repetitive purchase in *1 month* and **2.85% ( lowest )** in *9 months*. 
+This is concluded from the plot drawn below.
 
 ```python
 from matplotlib.pyplot import show
