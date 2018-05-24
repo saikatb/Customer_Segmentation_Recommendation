@@ -1,4 +1,4 @@
-
+The dataset has been uploaded in the dataframe named Supermarket
 
 ```python
 import numpy as np
@@ -13,23 +13,6 @@ Supermarket = pd.read_csv(your_local_path+'Supermarket_Purchase.csv')
 Supermarket.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -183,24 +166,6 @@ plt.title('Correlation between features');
 Supermarket_Norm = (Supermarket - Supermarket.mean()) / Supermarket.std()
 Supermarket_Norm.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -264,30 +229,11 @@ Supermarket_Norm.head()
 </div>
 
 
-
-
 ```python
 Supermarket_Norm.drop('Cust_id',axis=1,inplace=True)
 Supermarket_Norm.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -347,47 +293,7 @@ Supermarket_Norm.head()
 
 
 
-```python
-#PCA
-import pandas as pd
-from sklearn.decomposition import PCA
 
-pca = PCA(n_components=5)
-pca.fit_transform(Supermarket_Norm.values)
-print (pca.explained_variance_ratio_)
-print (pca.explained_variance_)
-variance_ratio_cum_sum = np.cumsum(np.round(pca.explained_variance_ratio_, decimals=4)*100)
-print (variance_ratio_cum_sum)
-```
-
-    [0.55744108 0.21667201 0.16105453 0.04939312 0.01543926]
-    [2.78720541 1.08336005 0.80527265 0.2469656  0.07719629]
-    [ 55.74  77.41  93.52  98.46 100.  ]
-    
-
-
-```python
-pca = PCA(n_components=3)
-pca.fit_transform(Supermarket_Norm.values)
-
-print (pd.DataFrame(pca.components_, columns=Supermarket_Norm.columns, index=['PC1','PC2','PC3']))
-
-
-#PC1 has maximum correlation with ** Purchase_Value,No_of_Items,Total_Discount**
-#PC2 has maximum correlation with ** AVG_Actual_price_12**
-#PC3 has maximum correlation with ** MONTH_SINCE_LAST_TRANSACTION **
-```
-
-         AVG_Actual_price_12  Purchase_Value  No_of_Items  Total_Discount  \
-    PC1            -0.101967        0.552661     0.575541        0.537195   
-    PC2             0.846165        0.124062    -0.080736       -0.115976   
-    PC3             0.485307        0.219252     0.097132        0.152895   
-    
-         MONTH_SINCE_LAST_TRANSACTION  
-    PC1                     -0.253659  
-    PC2                     -0.498643  
-    PC3                      0.826797  
-    
 
 
 ```python
@@ -397,28 +303,10 @@ print (pd.DataFrame(pca.components_, columns=Supermarket_Norm.columns, index=['P
 Supermarket['Selling_Price_Peritem'] = (Supermarket['Purchase_Value'] + Supermarket['Total_Discount']) / Supermarket['No_of_Items']
 ```
 
-
 ```python
 Supermarket.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -488,16 +376,10 @@ Supermarket.head()
 </div>
 
 
-
-
 ```python
 X = Supermarket.iloc[:,[5,6]].values
 X
 ```
-
-
-
-
     array([[1.100000e+01, 3.000000e+02],
            [2.000000e+00, 7.484375e+03],
            [4.000000e+00, 3.900000e+03],
@@ -506,8 +388,9 @@ X
            [1.200000e+01, 7.500000e+03],
            [1.200000e+01, 8.300000e+03]])
 
+A new dataframe has been created with a view to find out the elbow of the elbow curve. The values of the intertia of different number of clusters have been put inside an array called error and then the elbow curve is plot.
 
-
+df is the dataframe that has the columns with the decreasing value of inertia along with the increasing number of clusters. The motive is to find out the elbow point of the elbow curve.
 
 ```python
 from sklearn.cluster import KMeans
@@ -523,23 +406,6 @@ df = pd.DataFrame({"Cluster_Numbers":num_of_clusters, "Error_Term":error})
 df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -618,8 +484,7 @@ df
 </table>
 </div>
 
-
-
+Below is the plot between Number of Clusters and Inertia. From the below curve it is quite evident that when you will have 3 clsuters the inertia term will drop significantly. So we will create 4 clusters and would try to plot the corresponding Cust_id in the graph.
 
 ```python
 #Find the right number of clusters
@@ -638,15 +503,12 @@ plt.show()
 ![png](output_13_0.png)
 
 
+Below is the array of the predicted output of y_kmean after creating K means cluster of 3 clusters
 
 ```python
 kmeans =KMeans(n_clusters = 4, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
 y_kmeans = kmeans.fit_predict(X)
 y_kmeans
-```
-
-
-
 
     array([2, 1, 0, 3, 0, 0, 2, 0, 2, 0, 0, 3, 0, 3, 1, 1, 0, 0, 2, 0, 2, 0,
            2, 2, 0, 0, 3, 0, 2, 0, 2, 1, 3, 3, 3, 2, 0, 2, 2, 3, 3, 0, 0, 2,
@@ -681,31 +543,13 @@ y_kmeans
            0, 0, 0, 2, 0, 3, 2, 0, 0, 3, 0, 1, 2, 2, 3, 0, 3, 2, 0, 0, 1, 2,
            2, 0, 0, 1, 2, 3, 0, 3, 3, 1, 3, 0, 3, 2, 2, 3, 2, 2, 1, 1])
 
-
-
+```
+A new column called "Clusters" been appended and mapped in Supermarket dataframe.
 
 ```python
 Supermarket['Cluster'] = y_kmeans
 Supermarket.head(10)
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -836,30 +680,11 @@ Supermarket.head(10)
 </div>
 
 
-
-
 ```python
 Supermarket.set_index('Cust_id',inplace=True)
 Supermarket.head(10)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -989,31 +814,18 @@ Supermarket.head(10)
 </div>
 
 
-
-
 ```python
 Supermarket['Selling_Price_Peritem'].max(), Supermarket['MONTH_SINCE_LAST_TRANSACTION'].max()
-```
-
-
-
 
     (18000.0, 12)
-
-
-
+```
 
 ```python
 Supermarket['Selling_Price_Peritem'].min(), Supermarket['MONTH_SINCE_LAST_TRANSACTION'].min()
-```
-
-
-
 
     (50.0, 1)
-
-
-
+```
+A new datframe has been made consting of Cluster Number, Customer Id, Number of Customer in that cluster, and Percentrage of the Customer in that Cluster
 
 ```python
 from sklearn.cluster import KMeans
@@ -1033,24 +845,6 @@ for x in num_of_clusters:
 df_4 = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id, "Number_Of_Customer":Number_of_cust, "Percentage_Of_Customer":Percentage})
 df_4
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1094,7 +888,13 @@ df_4
 </table>
 </div>
 
+From the below plot below conclusions can be drawn :
 
+1. The population of the dataset is highly influenced (88.46%) by the Tightwads
+2. Only (1.85) % of customers (Spendthrifts) are repeated buyers and the buy in the higher range.
+3. (9.68 %) of customers (Avg Spenders) are more or less frequent buyers.
+
+So in order to increase ROI, sellers must concentrate on Spendthrifts and Avg Spenders and they should do the promotion of those proucts which these 2 categories of customers buy but seller should promote those products more which are consumed by Tightwads. Because at the end of the day 88.46% of the product consumption been done by these Tightwads.
 
 
 ```python
