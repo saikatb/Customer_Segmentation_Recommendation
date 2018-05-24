@@ -135,25 +135,23 @@ sns.distplot(Supermarket['MONTH_SINCE_LAST_TRANSACTION'],ax=ax[2,0])
 ax[2,0].set_title('MONTH_SINCE_LAST_TRANSACTION distribution')
 ```
 
-
-
-
     Text(0.5,1,'MONTH_SINCE_LAST_TRANSACTION distribution')
-
-
 
 
 ![png](output_2_1.png)
 
+
+Below conclusions can be drawn from the **pairplot** : 
+
+1.  **Purchase_Value** and **No_of_Items** are *positively correlated*
+2.  **Purchase_Value** and **Total_Discount** are *positively correlated*
+3.  **Total_Discount** and **No_of_Items** are *positively correlated*
 
 
 ```python
 import seaborn as sns
 sns.pairplot(Supermarket)
 ```
-
-
-
 
     <seaborn.axisgrid.PairGrid at 0xbe548f0>
 
