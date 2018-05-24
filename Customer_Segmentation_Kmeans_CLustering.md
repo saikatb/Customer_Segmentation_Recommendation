@@ -78,10 +78,12 @@ Supermarket.head()
 The dataset has total 702 rows and 6 columns
 The columns are as follow : 
 
-1.  **AVG_Actual_price_12,
-2.  **Purchase_Value, 
-3.  **No_of_Items, Total_Discount, and 
-4.  **MONTH_SINCE_LAST_TRANSACTION**
+1.  **Cust_id**
+2.  **AVG_Actual_price_12**
+3.  **Purchase_Value** 
+4.  **No_of_Items** 
+5.  **Total_Discount** 
+6.  **MONTH_SINCE_LAST_TRANSACTION**
 
 Purchase value ranges from 302721.4 (max) and 45.0 (min)
 Maximum number of items sold is 172 and minimum is 1 
