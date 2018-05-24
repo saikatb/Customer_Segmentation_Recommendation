@@ -770,14 +770,6 @@ df_4
 </table>
 </div>
 
-From the below plot below conclusions can be drawn :
-
-1. The population of the dataset is highly influenced (88.46%) by the Tightwads
-2. Only (1.85) % of customers (Spendthrifts) are repeated buyers and the buy in the higher range.
-3. (9.68 %) of customers (Avg Spenders) are more or less frequent buyers.
-
-So in order to increase ROI, sellers must concentrate on **Spendthrifts** and **Avg Spenders** customer type and they should do the promotion of those proucts which these 2 categories of customers buy. At the same time seller should not forget those products more which are consumed by Tightwads. Because at the end of the day 88.46% of the product consumption been done by these Tightwads.
-
 
 ```python
 # Visualizing the clusters
@@ -795,10 +787,21 @@ plt.legend()
 plt.show()
 ```
 
-
 ![png](output_20_0.png)
 
+From the above plot below things can be concluded: 
 
+1.  Customers belong to Cluster1 (colour Red) are the Cluster1 – SPs
+2.  Customers belong to Cluster2 (colour Blue) are the Cluster2 – NTs
+3.  Customers belong to Cluster3 (colour Green) are the Cluster3 – SJs
+4.  Customers belong to Cluster3 (colour Green) are the Cluster4 – NFs
+
+5.  Cluster1 – SPs  occupy 33.2 % of total consumers
+6.  Cluster2 – NTs occupy 11.4% of total consumers
+7.  Cluster3 – SJs occupy 34.0 % of total consumers
+8.  Cluster4 – NFs occupy 21.4 % of total consumers
+
+The above information has been visualized in a pie chart.
 
 ```python
 import matplotlib.pyplot as plt
@@ -822,8 +825,25 @@ plt.tight_layout()
 plt.show()
 ```
 
-
 ![png](output_21_0.png)
+
+
+Below are the description four categories of customers in the mall. 
+
+**The NT’s ( Intuition + Thinking )**
+Organizational leaders and decision making authorities fall under this category. They maker decision quickly with all the data presented in front of them. They value time more than their money. But if you will provide them too much of information to them about any product, you end up irritating them and losing them as customer.
+
+**The SP’s ( Sensing + Perceiving )**
+These customers are sensitive by nature and they have a proclivity towards swaying away by an emotional appeal.  A majority of the population fall under this category. As a seller, you should be in a position to establish a long-term relationship with these customers by striking the right chord with them.
+
+**The NF’s ( Intuition + Feeling )**
+This is one of the smallest groups among all others.  They are emotional as they have that “feel good factor” component involved in their decision making. If you want them as your loyal customer you need to treat them really well.
+
+**The SJ’s ( Sensing + Judging )** 
+This group is the largest of them all. However, this group is also the most difficult, because these customers love to make judgements. Highly detail oriented and logical, they want everything to be in proper order and sequence. They search every nook and corner of the mall in order to settle down with a logical deal.
+
+
+
 
 
 
