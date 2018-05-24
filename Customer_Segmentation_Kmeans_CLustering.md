@@ -75,6 +75,8 @@ Supermarket.head()
 </table>
 </div>
 
+#EDA#
+
 The dataset has total 702 rows and 6 columns
 The columns are as follow : 
 
@@ -108,6 +110,14 @@ show()
 
 
 ![png](output_1_0.png)
+
+Below observations can be drawn from the normal distribution of all the columns.
+
+1.  **AVG_Actual_price_12** is *positively skewed*
+2.  **Purchase_Value** is highly *positively skewed*
+3.  **No_of_Items is highly** *positively skewed*
+4.  **Total_Discount is highly** *positively skewed*
+5.  **MONTH_SINCE_LAST_TRANSACTION** is *moderately positively skewed*.
 
 
 
