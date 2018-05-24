@@ -75,6 +75,17 @@ Supermarket.head()
 </table>
 </div>
 
+The dataset has total 702 rows and 6 columns
+The columns are as follow : 
+
+**1.  AVG_Actual_price_12,
+2.  Purchase_Value, 
+3.  No_of_Items, Total_Discount, and 
+4.  MONTH_SINCE_LAST_TRANSACTION**
+
+Purchase value ranges from 302721.4 (max) and 45.0 (min)
+Maximum number of items sold is 172 and minimum is 1 
+21.65% ( highest ) of the total customers made a repetitive purchase in 1 month and 2.85% ( lowest ) in 9 months. This is concluded from the plot
 
 
 
