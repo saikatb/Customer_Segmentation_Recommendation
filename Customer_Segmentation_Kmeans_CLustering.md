@@ -151,21 +151,21 @@ sns.pairplot(Supermarket)
 
 ![png](output_3_1.png)
 
-This heat map clearly depicts some strong positive and negative correlations among several predictors. 
+**Heat map** clearly depicts some strong positive and negative correlations among several predictors. 
 
 Positive Correlations :
 
-Purchase_Value and No_of_items are highly positively correlated ( corr -> 0.89)
-No_of_items and Total_Discount are highly positively correlated ( corr -> 0.82)
-Total_Discount and Purchase_Value are positively correlated ( corr -> 0.74)
-AVG_Actual_price_12 is slightly positively correlated  with Purchase_Value (corr -> 0.019)
+1.  **Purchase_Value** and **No_of_items** are highly positively correlated *( corr -> 0.89)*
+2.  **No_of_items** and **Total_Discount** are highly positively correlated *( corr -> 0.82)*
+3.  **Total_Discount** and **Purchase_Value** are positively correlated *( corr -> 0.74)*
+4.  **AVG_Actual_price_12** is slightly positively correlated  with **Purchase_Value** *(corr -> 0.019)*
 
 
 Negative Correlations:
 
-MONTH_SINCE_LAST_TRANSACTION is lowly negatively correlated with Total_Discount (corr->-0.23), No_of_items (corr->-0.29) , Purchase_Value (corr->-0.31), and AVG_Actual_price_12 (corr->-0.064)
-AVG_Actual_price_12 is lowly negatively correlated with No_of_items (corr->-0.2) and Total_Discount (corr->-0.18)
-
+1.  **MONTH_SINCE_LAST_TRANSACTION** is lowly negatively correlated with **Total_Discount** *(corr->-0.23)*, **No_of_items** *(corr->-0.29)*
+2.  **Purchase_Value** *(corr->-0.31)*, and **AVG_Actual_price_12** *(corr->-0.064)*
+3.  **AVG_Actual_price_12** is lowly negatively correlated with **No_of_items** *(corr->-0.2)* and **Total_Discount** *(corr->-0.18)*
 
 
 ```python
