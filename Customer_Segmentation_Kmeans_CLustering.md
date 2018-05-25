@@ -1,3 +1,11 @@
+While doing Customer segmentation and Recommendation below steps has been followed.
+
+1.  Extrapolatory Data Analysis or EDA
+2.  Cluster Analysis
+3.  Customer Segmentation
+4.  Recommendation
+
+
 The dataset has been uploaded in the dataframe named Supermarket
 
 ```python
@@ -76,6 +84,8 @@ Supermarket.head()
 </div>
 
 #EDA#
+
+After creating the dataset extrapolatory data analysis has been performed on the **Supermarket** dataset.
 
 The dataset has total 702 rows and 6 columns
 The columns are as follow : 
