@@ -1,10 +1,10 @@
 While doing Customer segmentation and Recommendation below steps has been followed.
 
-1.  Extrapolatory Data Analysis or EDA
+**1.  Extrapolatory Data Analysis or EDA
 2.  Data Preprocessing
 3.  K-means clustering
 4.  Customer Segmentation
-5.  Recommendation
+5.  Recommendation**
 
 
 The dataset has been uploaded in the dataframe named Supermarket
@@ -196,7 +196,7 @@ plt.title('Correlation between features');
 ![png](output_4_0.png)
 
 
-# 2. Data Pre Processing #
+# 2. Data Preprocessing #
 
 In data preprocessing stage, we will normalize the data using min max scaler function.
 
@@ -381,7 +381,8 @@ df
 </table>
 </div>
 
-Using below python script **the optimum number of clusters** has been calculated.
+Using below python script **the optimum number of clusters** has been calculated using elbow curve. 
+Clearly, the elbow was at **cluster number 3**.
 
 ```python
 import matplotlib.pyplot as plt
@@ -393,11 +394,149 @@ plt.ylabel('Inertia')
 plt.show()
 ```
 
+![png](output_10_0.png)
+
+
+# 3. K-means Clustering # 
+
+After finding the elbow point (**at cluser number: 3**) *kmeans* has been calculated.
+
+```python
+kmeans =KMeans(n_clusters = 3, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
+y_kmeans = kmeans.fit_predict(X)
+```
+A new column named **Cluster** has been added at the end of the cluster **Supermarket_Norm**. 
+
+```python
+Supermarket_Norm['Cluster'] = y_kmeans
+Supermarket_Norm.head(10)
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id_Norm</th>
+      <th>AVG_Actual_price_12_Norm</th>
+      <th>Purchase_Value_Norm</th>
+      <th>No_of_Items_Norm</th>
+      <th>Total_Discount_Norm</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION_Norm</th>
+      <th>Cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000808</td>
+      <td>0.242525</td>
+      <td>0.970099</td>
+      <td>0.003234</td>
+      <td>0.000000</td>
+      <td>0.008893</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.000023</td>
+      <td>0.028861</td>
+      <td>0.461772</td>
+      <td>0.000180</td>
+      <td>0.886529</td>
+      <td>0.000023</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.000507</td>
+      <td>0.445021</td>
+      <td>0.890042</td>
+      <td>0.000254</td>
+      <td>0.098894</td>
+      <td>0.000507</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.000555</td>
+      <td>0.314485</td>
+      <td>0.943456</td>
+      <td>0.000208</td>
+      <td>0.104828</td>
+      <td>0.000069</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.000238</td>
+      <td>0.064221</td>
+      <td>0.884861</td>
+      <td>0.000397</td>
+      <td>0.461408</td>
+      <td>0.000159</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.000389</td>
+      <td>0.028954</td>
+      <td>0.347454</td>
+      <td>0.000467</td>
+      <td>0.937250</td>
+      <td>0.000273</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.000431</td>
+      <td>0.064623</td>
+      <td>0.578777</td>
+      <td>0.000744</td>
+      <td>0.812921</td>
+      <td>0.000039</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.000297</td>
+      <td>0.055947</td>
+      <td>0.923355</td>
+      <td>0.000421</td>
+      <td>0.379848</td>
+      <td>0.000074</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.001913</td>
+      <td>0.069534</td>
+      <td>0.278135</td>
+      <td>0.000589</td>
+      <td>0.958020</td>
+      <td>0.000147</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.001559</td>
+      <td>0.311785</td>
+      <td>0.935355</td>
+      <td>0.000334</td>
+      <td>0.167028</td>
+      <td>0.001002</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
 
 
+
+
+
+####################################################################################################################################
 A new predictor called **Selling_Price_Peritem** has been made combining **Purchase_Value** , **No_of_Items** , and **Total_Discount** 
 
 ```python
