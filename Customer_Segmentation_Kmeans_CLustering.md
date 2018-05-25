@@ -1,10 +1,10 @@
 While doing Customer segmentation and Recommendation below steps has been followed.
 
-**1.  Extrapolatory Data Analysis or EDA
-2.  Data Preprocessing
-3.  K-means clustering
-4.  Customer Segmentation
-5.  Recommendation**
+**1.  Extrapolatory Data Analysis or EDA**
+**2.  Data Preprocessing**
+**3.  K-means clustering**
+**4.  Customer Segmentation**
+**5.  Recommendation**
 
 
 The dataset has been uploaded in the dataframe named Supermarket
@@ -84,7 +84,7 @@ Supermarket.head()
 </table>
 </div>
 
-# EDA ( Extrapolatory Data Analysis ) #
+# 1. EDA ( Extrapolatory Data Analysis ) #
 
 After creating the dataset extrapolatory data analysis has been performed on the **Supermarket** dataset.
 
