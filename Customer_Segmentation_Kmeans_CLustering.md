@@ -1,9 +1,10 @@
 While doing Customer segmentation and Recommendation below steps has been followed.
 
 1.  Extrapolatory Data Analysis or EDA
-2.  Cluster Analysis
-3.  Customer Segmentation
-4.  Recommendation
+2.  Data Preprocessing
+3.  K-means clustering
+4.  Customer Segmentation
+5.  Recommendation
 
 
 The dataset has been uploaded in the dataframe named Supermarket
@@ -192,8 +193,208 @@ sns.heatmap(corr,
 plt.title('Correlation between features');
 ```
 
-
 ![png](output_4_0.png)
+
+
+# 2. Data Pre Processing #
+
+In data preprocessing stage, we will normalize the data using min max scaler function.
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import Normalizer
+scld = Normalizer()
+Super_scld = scld.fit_transform(Supermarket)
+Supermarket_Norm = pd.DataFrame(Super_scld, columns=Supermarket.columns)
+Supermarket_Norm.columns =['Cust_id_Norm','AVG_Actual_price_12_Norm','Purchase_Value_Norm','No_of_Items_Norm','Total_Discount_Norm','MONTH_SINCE_LAST_TRANSACTION_Norm']
+
+Supermarket_Norm.head()
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id_Norm</th>
+      <th>AVG_Actual_price_12_Norm</th>
+      <th>Purchase_Value_Norm</th>
+      <th>No_of_Items_Norm</th>
+      <th>Total_Discount_Norm</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION_Norm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000808</td>
+      <td>0.242525</td>
+      <td>0.970099</td>
+      <td>0.003234</td>
+      <td>0.000000</td>
+      <td>0.008893</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.000023</td>
+      <td>0.028861</td>
+      <td>0.461772</td>
+      <td>0.000180</td>
+      <td>0.886529</td>
+      <td>0.000023</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.000507</td>
+      <td>0.445021</td>
+      <td>0.890042</td>
+      <td>0.000254</td>
+      <td>0.098894</td>
+      <td>0.000507</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.000555</td>
+      <td>0.314485</td>
+      <td>0.943456</td>
+      <td>0.000208</td>
+      <td>0.104828</td>
+      <td>0.000069</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.000238</td>
+      <td>0.064221</td>
+      <td>0.884861</td>
+      <td>0.000397</td>
+      <td>0.461408</td>
+      <td>0.000159</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+An array has been created by choosing column **AVG_Actual_price_12_Norm** and **MONTH_SINCE_LAST_TRANSACTION_Norm** from *Supermarket_head* dataframe.
+
+```python
+X = Supermarket_Norm.iloc[:,[1,5]].values
+X
+
+    array([[2.42524688e-01, 8.89257189e-03],
+           [2.88607651e-02, 2.25185988e-05],
+           [4.45021230e-01, 5.07146701e-04],
+           ...,
+           [2.46790487e-01, 8.53343469e-03],
+           [5.70559718e-01, 1.82579110e-03],
+           [5.71776798e-01, 1.65333050e-03]])
+```
+A dataframe has been created using two columns named **number of clusters** (starting from 2 to 15) and also **inertia**. 
+
+```python
+from sklearn.cluster import KMeans
+num_of_clusters = range(2,15)
+error=[]
+
+for num_clusters in num_of_clusters:
+    clusters = KMeans(num_clusters)
+    clusters.fit(X)
+    error.append(clusters.inertia_/100)
+
+df = pd.DataFrame({"Cluster_Numbers":num_of_clusters, "Error_Term":error})
+df
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster_Numbers</th>
+      <th>Error_Term</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>0.088315</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>0.030073</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>0.014520</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>0.006992</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>0.004769</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7</td>
+      <td>0.003358</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8</td>
+      <td>0.002288</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9</td>
+      <td>0.001750</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>10</td>
+      <td>0.001456</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>11</td>
+      <td>0.001242</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>12</td>
+      <td>0.001044</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>13</td>
+      <td>0.000840</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>14</td>
+      <td>0.000761</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+Using below python script **the optimum number of clusters** has been calculated.
+
+```python
+import matplotlib.pyplot as plt
+%matplotlib inline
+plt.figure(figsize=(10,6))
+plt.plot(df.Cluster_Numbers, df.Error_Term, marker = "D", color='blue')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Inertia')
+plt.show()
+```
+
+
+
 
 
 
