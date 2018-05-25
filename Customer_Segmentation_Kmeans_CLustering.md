@@ -529,6 +529,347 @@ Supermarket_Norm.head(10)
 </table>
 </div>
 
+Dataframe **df_3_Norm** contains **Cluster_Numbers**, **Cust_id**, **Number_Of_Customer**, and **Percentage_Of_Customer**. The same dataframe tells which customer(**Cust_id**) belongs to which **Cluster_Numbers**
+
+```python
+from sklearn.cluster import KMeans
+num_of_clusters = range(0,3)
+numofcluster = []
+Customer_id=[]
+Number_of_cust=[]
+Percentage=[]
+
+for x in num_of_clusters:
+    
+    Customer_id.append(Supermarket_Norm[Supermarket_Norm['Cluster'] == x].index.get_values())
+    Number_of_cust.append(len((Supermarket_Norm[Supermarket_Norm['Cluster'] == x].get_values())))
+    Percentage.append(len((Supermarket_Norm[Supermarket_Norm['Cluster'] == x].get_values()))/len(Supermarket_Norm)*100)
+    numofcluster.append(x+1)
+
+df_3_Norm = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id, "Number_Of_Customer":Number_of_cust, "Percentage_Of_Customer":Percentage})
+df_3_Norm
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster_Numbers</th>
+      <th>Cust_id</th>
+      <th>Number_Of_Customer</th>
+      <th>Percentage_Of_Customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>[0, 2, 3, 9, 25, 33, 37, 40, 42, 43, 44, 45, 4...</td>
+      <td>199</td>
+      <td>28.347578</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 4, 5, 6, 7, 8, 11, 12, 13, 15, 16, 17, 19,...</td>
+      <td>377</td>
+      <td>53.703704</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>[10, 14, 18, 29, 30, 31, 34, 35, 38, 62, 64, 6...</td>
+      <td>126</td>
+      <td>17.948718</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+```python
+Supermarket['Cluster'] = y_kmeans
+Supermarket.head(10)
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id</th>
+      <th>AVG_Actual_price_12</th>
+      <th>Purchase_Value</th>
+      <th>No_of_Items</th>
+      <th>Total_Discount</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION</th>
+      <th>Cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>300.000000</td>
+      <td>1200.00</td>
+      <td>4</td>
+      <td>0.00</td>
+      <td>11</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2563.282500</td>
+      <td>41012.52</td>
+      <td>16</td>
+      <td>78737.48</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>3510.000000</td>
+      <td>7020.00</td>
+      <td>2</td>
+      <td>780.00</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>4530.000000</td>
+      <td>13590.00</td>
+      <td>3</td>
+      <td>1510.00</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>2428.076923</td>
+      <td>33455.00</td>
+      <td>15</td>
+      <td>17445.00</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>10</td>
+      <td>743.750000</td>
+      <td>8925.00</td>
+      <td>12</td>
+      <td>24075.00</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>11</td>
+      <td>1649.357143</td>
+      <td>14772.00</td>
+      <td>19</td>
+      <td>20748.00</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>12</td>
+      <td>2257.916667</td>
+      <td>37265.00</td>
+      <td>17</td>
+      <td>15330.00</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>13</td>
+      <td>472.500000</td>
+      <td>1890.00</td>
+      <td>4</td>
+      <td>6510.00</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>14</td>
+      <td>2800.000000</td>
+      <td>8400.00</td>
+      <td>3</td>
+      <td>1500.00</td>
+      <td>9</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+```python
+from sklearn.cluster import KMeans
+num_of_clusters = range(0,3)
+numofcluster = []
+Customer_id=[]
+Number_of_cust=[]
+Percentage=[]
+
+for x in num_of_clusters:
+    
+    Customer_id.append(Supermarket[Supermarket['Cluster'] == x].index.get_values())
+    Number_of_cust.append(len((Supermarket[Supermarket['Cluster'] == x].get_values())))
+    Percentage.append(len((Supermarket[Supermarket['Cluster'] == x].get_values()))/len(Supermarket)*100)
+    numofcluster.append(x+1)
+
+df_3 = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id, "Number_Of_Customer":Number_of_cust, "Percentage_Of_Customer":Percentage})
+df_3
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster_Numbers</th>
+      <th>Cust_id</th>
+      <th>Number_Of_Customer</th>
+      <th>Percentage_Of_Customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>[0, 2, 3, 9, 25, 33, 37, 40, 42, 43, 44, 45, 4...</td>
+      <td>199</td>
+      <td>28.347578</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 4, 5, 6, 7, 8, 11, 12, 13, 15, 16, 17, 19,...</td>
+      <td>377</td>
+      <td>53.703704</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>[10, 14, 18, 29, 30, 31, 34, 35, 38, 62, 64, 6...</td>
+      <td>126</td>
+      <td>17.948718</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+If we will compare dataframe **df_3_Norm** and **df_3**, we will see that both the dataframe contain same columns and data.
+
+
+
+
+Profile of the Clusters
+
+```python
+clust_profile = pd.pivot_table(Supermarket, values=['AVG_Actual_price_12','Purchase_Value','No_of_Items','MONTH_SINCE_LAST_TRANSACTION'], index='Cluster',aggfunc=np.mean)
+clust_profile
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AVG_Actual_price_12</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION</th>
+      <th>No_of_Items</th>
+      <th>Purchase_Value</th>
+    </tr>
+    <tr>
+      <th>Cluster</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3097.811420</td>
+      <td>5.804020</td>
+      <td>2.492462</td>
+      <td>7761.558291</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2007.867150</td>
+      <td>4.124668</td>
+      <td>18.310345</td>
+      <td>31522.585066</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3824.364365</td>
+      <td>6.515873</td>
+      <td>1.007937</td>
+      <td>3853.332619</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+```python
+Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].max(), Supermarket_Norm['AVG_Actual_price_12_Norm'].max()
+    (0.01975289072831315, 0.7071021489611119)
+```
+```python
+Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].min(), Supermarket_Norm['AVG_Actual_price_12_Norm'].min()
+    (1.7090633720824546e-06, 0.002239716999065861)
+```
+
+
+```python
+# Visualizing the clusters
+plt.figure(figsize=(10,6))
+plt.scatter(X[y_kmeans == 0,0],X[y_kmeans == 0,1], s = 50, c='blue',label='Cluster1 - Average Spenders')
+plt.scatter(X[y_kmeans == 1,0],X[y_kmeans == 1,1], s = 50, c='red',label='Cluster2 - Tightwads')
+plt.scatter(X[y_kmeans == 2,0],X[y_kmeans == 2,1], s = 50, c='green',label='Cluster3 - Spendthrifts')
+plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1], s=200, c='magenta', label='Centroids',marker='*')
+plt.title('Cluster of Clients')
+plt.xlabel('AVG_Actual_price_12_Norm')
+plt.ylabel('MONTH_SINCE_LAST_TRANSACTION_Norm')
+plt.legend()
+plt.show()
+```
+
+![png](output_25_0.png)
+
+
+```python
+from sklearn.cluster import KMeans
+k_means = KMeans(n_clusters=3, init='k-means++', random_state=5000)
+k_means.fit(Supermarket[['MONTH_SINCE_LAST_TRANSACTION','AVG_Actual_price_12']])
+fig = plt.figure(figsize=(10,6))
+plt.scatter(Supermarket['MONTH_SINCE_LAST_TRANSACTION'],Supermarket['AVG_Actual_price_12'],50,c=k_means.labels_, alpha=0.8)
+plt.xlabel('MONTH_SINCE_LAST_TRANSACTION')
+plt.ylabel('AVG_Actual_price_12')
+plt.legend()
+#[plt.text(row.MONTH_SINCE_LAST_TRANSACTION, row.AVG_Actual_price_12, row.Cust_id)]
+#[plt.text(row.MONTH_SINCE_LAST_TRANSACTION, row.AVG_Actual_price_12, row.Cust_id) for row in Supermarket.intertuples()]
+plt.show()
+```
+
+![png](output_26_0.png)
+
+
+
+
+
+
+
+
 
 
 
