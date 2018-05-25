@@ -864,10 +864,29 @@ plt.show()
 ![png](output_26_0.png)
 
 
+A pie-chart has been plotted in order to provide a pictorial representation of the segmented customers in 3 different categories i.e.
+
+1.  **Tightwads**
+2.  **Average Spenders**
+3.  **Spendthrifts**
 
 
+```python
+import matplotlib.pyplot as plt
 
+labels = ['Cluster1 - Spendthrifts','Cluster2 - Tightwads','Cluster3 - Average Spenders']
+sizes = [199,377,126]
+colors = ['lightskyblue','orange','lightgreen']
+patches, texts = plt.pie(sizes, colors=colors, shadow=True, startangle=90)
+plt.legend(patches, labels, loc='upper left')
 
+plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=90, radius = 1000)
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+```
+
+![png](output_28_0.png)
 
 
 
