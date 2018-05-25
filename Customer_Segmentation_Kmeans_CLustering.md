@@ -83,7 +83,7 @@ Supermarket.head()
 </table>
 </div>
 
-# EDA #
+# EDA ( Extrapolatory Data Analysis ) #
 
 After creating the dataset extrapolatory data analysis has been performed on the **Supermarket** dataset.
 
