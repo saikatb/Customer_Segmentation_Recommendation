@@ -820,7 +820,13 @@ clust_profile
 </table>
 </div>
 
-**Cluster 0** is made up with **Average Spenders**, **Cluster 1** is no doubt a group **Tightwads**, and **CLuster 2** is a group made up with those people who believe in shooping lavishly and which is why this group of people are known as **Spendthrifts** 
+From the dataframe **clust_profile** few conclusions can be drawn. Those are as follows : 
+
+1.  **Cluster 0** is made up with **Average Spenders**, **Cluster 1** is no doubt a group **Tightwads**, and **CLuster 2** is a group   made up with those people who believe in shooping lavishly and which is why this group of people are known as **Spendthrifts** 
+
+2.  **Tightwads** has the tendency to shop cheap products in **greater quantity** as compared to **Average Spenders** or **Spendthrifts**
+
+3.  **Tightwads** also shop frequently. **Spendthrifts** visit shopping mall seldom.
 
 
 ```python
