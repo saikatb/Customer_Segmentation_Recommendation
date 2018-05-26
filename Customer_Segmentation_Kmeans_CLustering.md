@@ -766,12 +766,12 @@ df_3
 </table>
 </div>
 
-If we will compare dataframe **df_3_Norm** and **df_3**, we will see that both the dataframe contain same columns and data.
+If we will compare dataframe **df_3_Norm** and **df_3**, we will see that both the dataframe contain same ***columns and data.***
+Hence forth, we can add **Cluster** column at the end of the dataframe **Supermarket** and it wont make any difference while analyzing normalized version (**Supermarket_Norm**) or normal dataframe **Supermarket**.
 
 
-
-
-Profile of the Clusters
+Creating **cluster profile** and analyzing the same always helps in extracting important information. 
+Dataframe **clust_profile** will also help us in giving some perspective about the clusters.
 
 ```python
 clust_profile = pd.pivot_table(Supermarket, values=['AVG_Actual_price_12','Purchase_Value','No_of_Items','MONTH_SINCE_LAST_TRANSACTION'], index='Cluster',aggfunc=np.mean)
@@ -820,15 +820,18 @@ clust_profile
 </table>
 </div>
 
+**Cluster 0** is made up with **Average Spenders**, **Cluster 1** is no doubt a group **Tightwads**, and **CLuster 2** is a group made up with those people who believe in shooping lavishly and which is why this group of people are known as **Spendthrifts** 
+
+
 ```python
 Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].max(), Supermarket_Norm['AVG_Actual_price_12_Norm'].max()
     (0.01975289072831315, 0.7071021489611119)
-```
-```python
+
 Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].min(), Supermarket_Norm['AVG_Actual_price_12_Norm'].min()
     (1.7090633720824546e-06, 0.002239716999065861)
 ```
 
+Below plot is of **AVG_Actual_price_12_Norm** and **MONTH_SINCE_LAST_TRANSACTION_Norm** which help us in shedding some light on the customer  distribution among different **clusters**
 
 ```python
 # Visualizing the clusters
