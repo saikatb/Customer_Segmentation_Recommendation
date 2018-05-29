@@ -903,6 +903,8 @@ plt.show()
 #################################################
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+Importing dataset again in a new dataframe called **Supermarket**
+
 ```python
 import numpy as np
 import pandas as pd
@@ -915,24 +917,6 @@ Supermarket = pd.read_csv(your_local_path+'Supermarket_Purchase.csv')
 
 Supermarket.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -996,123 +980,14 @@ Supermarket.head()
 </div>
 
 
-
+A new column has been derived called **Selling_Price_Peritem** and from **Selling_Price_Peritem** a new column named **Profit_Peritem** is derived.
 
 ```python
 Supermarket['Selling_Price_Peritem'] = (Supermarket['Purchase_Value'] + Supermarket['Total_Discount']) / Supermarket['No_of_Items']
-Supermarket.head()
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Cust_id</th>
-      <th>AVG_Actual_price_12</th>
-      <th>Purchase_Value</th>
-      <th>No_of_Items</th>
-      <th>Total_Discount</th>
-      <th>MONTH_SINCE_LAST_TRANSACTION</th>
-      <th>Selling_Price_Peritem</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>300.000000</td>
-      <td>1200.00</td>
-      <td>4</td>
-      <td>0.00</td>
-      <td>11</td>
-      <td>300.000000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>2563.282500</td>
-      <td>41012.52</td>
-      <td>16</td>
-      <td>78737.48</td>
-      <td>2</td>
-      <td>7484.375000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4</td>
-      <td>3510.000000</td>
-      <td>7020.00</td>
-      <td>2</td>
-      <td>780.00</td>
-      <td>4</td>
-      <td>3900.000000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>8</td>
-      <td>4530.000000</td>
-      <td>13590.00</td>
-      <td>3</td>
-      <td>1510.00</td>
-      <td>1</td>
-      <td>5033.333333</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>9</td>
-      <td>2428.076923</td>
-      <td>33455.00</td>
-      <td>15</td>
-      <td>17445.00</td>
-      <td>6</td>
-      <td>3393.333333</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
 Supermarket['Profit_Peritem'] = Supermarket['Selling_Price_Peritem'] - Supermarket['AVG_Actual_price_12']
 Supermarket.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1188,7 +1063,7 @@ Supermarket.head()
 </div>
 
 
-
+The new updated dataframe **Supermarket** is now been normalized using below python script.
 
 ```python
 from sklearn import preprocessing
@@ -1201,28 +1076,12 @@ Supermarket_Norm = pd.DataFrame(x_scaled)
 Supermarket_Norm.columns = ['Cust_id_Norm', 'AVG_Actual_price_12_Norm', 'Purchase_Value_Norm', 'No_of_Items_Norm', 'Total_Discount_Norm', 'MONTH_SINCE_LAST_TRANSACTION_Norm', 'Selling_Price_Peritem_Norm', 'Profit_Peritem_Norm']
 ```
 
+Below is **Supermarket_Norm** dataframe.
 
 ```python
 Supermarket_Norm.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1298,17 +1157,13 @@ Supermarket_Norm.head()
 </div>
 
 
-
+From **Supermarket_Norm** dataframe two columns named **MONTH_SINCE_LAST_TRANSACTION** and **Profit_Peritem** is choosen respectively and **X_Norm** array been created.
 
 ```python
 X_Norm = Supermarket_Norm.iloc[:,[5,7]].values
 X_Norm
-```
 
-
-
-
-    array([[0.90909091, 0.15983288],
+  array([[0.90909091, 0.15983288],
            [0.09090909, 0.47787981],
            [0.27272727, 0.18503832],
            ...,
@@ -1316,8 +1171,8 @@ X_Norm
            [1.        , 0.40219288],
            [1.        , 0.42804461]])
 
-
-
+```
+A new dataframe called **df_Norm** containing columns **Cluster_Numbers** and **Error_Term** has been developed.
 
 ```python
 from sklearn.cluster import KMeans
@@ -1333,23 +1188,6 @@ df_Norm = pd.DataFrame({"Cluster_Numbers":num_of_clusters, "Error_Term":error})
 df_Norm
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1428,8 +1266,7 @@ df_Norm
 </table>
 </div>
 
-
-
+Below graph depicts the plot between **Cluster_Numbers** and **Error_Term** and from the plot it is quite evident that the elbow of the curve is at cluster number **3**
 
 ```python
 #Find the right number of clusters
@@ -1451,12 +1288,8 @@ plt.show()
 kmeans =KMeans(n_clusters = 3, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
 y_kmeans = kmeans.fit_predict(X_Norm)
 y_kmeans
-```
 
-
-
-
-    array([0, 1, 2, 1, 2, 2, 1, 1, 1, 0, 2, 2, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2,
+  array([0, 1, 2, 1, 2, 2, 1, 1, 1, 0, 2, 2, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2,
            2, 1, 2, 1, 0, 1, 1, 2, 0, 0, 1, 2, 2, 1, 1, 1, 0, 0, 2, 1, 2, 2,
            0, 1, 1, 0, 1, 2, 1, 1, 0, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 2,
            0, 1, 0, 1, 1, 1, 2, 1, 0, 0, 2, 2, 2, 2, 1, 2, 2, 2, 0, 1, 0, 2,
@@ -1488,32 +1321,15 @@ y_kmeans
            2, 2, 2, 2, 1, 0, 2, 0, 0, 0, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1,
            1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2, 0, 1, 2, 1,
            2, 0, 2, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 0, 0, 0])
+```
 
-
-
+A new column **Cluster** been added mapping **y_kmeans**
 
 ```python
 Supermarket_Norm['Cluster'] = y_kmeans
 Supermarket_Norm.head(10)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1660,22 +1476,10 @@ Supermarket_Norm.head(10)
 ```python
 Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].max(), Supermarket_Norm['Profit_Peritem_Norm'].max()
 ```
-
-
-
-
     (0.9999999999999999, 1.0)
-
-
-
-
 ```python
 Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].min(), Supermarket_Norm['Profit_Peritem_Norm'].min()
 ```
-
-
-
-
     (0.0, 0.0)
 
 
