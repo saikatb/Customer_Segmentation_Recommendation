@@ -900,6 +900,1064 @@ plt.show()
 
 
 
+#################################################
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pandas import DataFrame,Series
+%matplotlib inline
+
+your_local_path = "C:/Users/SaikatPC/Desktop/UPX_Academy/attachment_ML_attachment_Project/Customer_Segmentation_Reco/"
+Supermarket = pd.read_csv(your_local_path+'Supermarket_Purchase.csv')
+
+Supermarket.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id</th>
+      <th>AVG_Actual_price_12</th>
+      <th>Purchase_Value</th>
+      <th>No_of_Items</th>
+      <th>Total_Discount</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>300.000000</td>
+      <td>1200.00</td>
+      <td>4</td>
+      <td>0.00</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2563.282500</td>
+      <td>41012.52</td>
+      <td>16</td>
+      <td>78737.48</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>3510.000000</td>
+      <td>7020.00</td>
+      <td>2</td>
+      <td>780.00</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>4530.000000</td>
+      <td>13590.00</td>
+      <td>3</td>
+      <td>1510.00</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>2428.076923</td>
+      <td>33455.00</td>
+      <td>15</td>
+      <td>17445.00</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+Supermarket['Selling_Price_Peritem'] = (Supermarket['Purchase_Value'] + Supermarket['Total_Discount']) / Supermarket['No_of_Items']
+Supermarket.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id</th>
+      <th>AVG_Actual_price_12</th>
+      <th>Purchase_Value</th>
+      <th>No_of_Items</th>
+      <th>Total_Discount</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION</th>
+      <th>Selling_Price_Peritem</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>300.000000</td>
+      <td>1200.00</td>
+      <td>4</td>
+      <td>0.00</td>
+      <td>11</td>
+      <td>300.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2563.282500</td>
+      <td>41012.52</td>
+      <td>16</td>
+      <td>78737.48</td>
+      <td>2</td>
+      <td>7484.375000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>3510.000000</td>
+      <td>7020.00</td>
+      <td>2</td>
+      <td>780.00</td>
+      <td>4</td>
+      <td>3900.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>4530.000000</td>
+      <td>13590.00</td>
+      <td>3</td>
+      <td>1510.00</td>
+      <td>1</td>
+      <td>5033.333333</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>2428.076923</td>
+      <td>33455.00</td>
+      <td>15</td>
+      <td>17445.00</td>
+      <td>6</td>
+      <td>3393.333333</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+Supermarket['Profit_Peritem'] = Supermarket['Selling_Price_Peritem'] - Supermarket['AVG_Actual_price_12']
+Supermarket.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id</th>
+      <th>AVG_Actual_price_12</th>
+      <th>Purchase_Value</th>
+      <th>No_of_Items</th>
+      <th>Total_Discount</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION</th>
+      <th>Selling_Price_Peritem</th>
+      <th>Profit_Peritem</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>300.000000</td>
+      <td>1200.00</td>
+      <td>4</td>
+      <td>0.00</td>
+      <td>11</td>
+      <td>300.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2563.282500</td>
+      <td>41012.52</td>
+      <td>16</td>
+      <td>78737.48</td>
+      <td>2</td>
+      <td>7484.375000</td>
+      <td>4921.092500</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>3510.000000</td>
+      <td>7020.00</td>
+      <td>2</td>
+      <td>780.00</td>
+      <td>4</td>
+      <td>3900.000000</td>
+      <td>390.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>4530.000000</td>
+      <td>13590.00</td>
+      <td>3</td>
+      <td>1510.00</td>
+      <td>1</td>
+      <td>5033.333333</td>
+      <td>503.333333</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>2428.076923</td>
+      <td>33455.00</td>
+      <td>15</td>
+      <td>17445.00</td>
+      <td>6</td>
+      <td>3393.333333</td>
+      <td>965.256410</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+from sklearn import preprocessing
+import pandas as pd
+x = Supermarket.values 
+min_max_scaler = preprocessing.MinMaxScaler()
+x_scaled = min_max_scaler.fit_transform(x)
+Supermarket_Norm = pd.DataFrame(x_scaled)
+
+Supermarket_Norm.columns = ['Cust_id_Norm', 'AVG_Actual_price_12_Norm', 'Purchase_Value_Norm', 'No_of_Items_Norm', 'Total_Discount_Norm', 'MONTH_SINCE_LAST_TRANSACTION_Norm', 'Selling_Price_Peritem_Norm', 'Profit_Peritem_Norm']
+```
+
+
+```python
+Supermarket_Norm.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id_Norm</th>
+      <th>AVG_Actual_price_12_Norm</th>
+      <th>Purchase_Value_Norm</th>
+      <th>No_of_Items_Norm</th>
+      <th>Total_Discount_Norm</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION_Norm</th>
+      <th>Selling_Price_Peritem_Norm</th>
+      <th>Profit_Peritem_Norm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>0.027813</td>
+      <td>0.003816</td>
+      <td>0.017544</td>
+      <td>0.005367</td>
+      <td>0.909091</td>
+      <td>0.013928</td>
+      <td>0.159833</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.000995</td>
+      <td>0.254651</td>
+      <td>0.135351</td>
+      <td>0.087719</td>
+      <td>0.112012</td>
+      <td>0.090909</td>
+      <td>0.414171</td>
+      <td>0.477880</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.002985</td>
+      <td>0.349536</td>
+      <td>0.023044</td>
+      <td>0.005848</td>
+      <td>0.006423</td>
+      <td>0.272727</td>
+      <td>0.214485</td>
+      <td>0.185038</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.006965</td>
+      <td>0.451766</td>
+      <td>0.044751</td>
+      <td>0.011696</td>
+      <td>0.007412</td>
+      <td>0.000000</td>
+      <td>0.277623</td>
+      <td>0.192363</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.007960</td>
+      <td>0.241100</td>
+      <td>0.110382</td>
+      <td>0.081871</td>
+      <td>0.028995</td>
+      <td>0.454545</td>
+      <td>0.186258</td>
+      <td>0.222217</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+X_Norm = Supermarket_Norm.iloc[:,[5,7]].values
+X_Norm
+```
+
+
+
+
+    array([[0.90909091, 0.15983288],
+           [0.09090909, 0.47787981],
+           [0.27272727, 0.18503832],
+           ...,
+           [1.        , 0.17941266],
+           [1.        , 0.40219288],
+           [1.        , 0.42804461]])
+
+
+
+
+```python
+from sklearn.cluster import KMeans
+num_of_clusters = range(2,15)
+error=[]
+
+for num_clusters in num_of_clusters:
+    clusters = KMeans(num_clusters)
+    clusters.fit(X_Norm)
+    error.append(clusters.inertia_/100)
+
+df_Norm = pd.DataFrame({"Cluster_Numbers":num_of_clusters, "Error_Term":error})
+df_Norm
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster_Numbers</th>
+      <th>Error_Term</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>0.263278</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>0.158140</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>0.121601</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>0.095311</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>0.078198</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7</td>
+      <td>0.066848</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8</td>
+      <td>0.056047</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9</td>
+      <td>0.050035</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>10</td>
+      <td>0.045185</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>11</td>
+      <td>0.039237</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>12</td>
+      <td>0.035012</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>13</td>
+      <td>0.032311</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>14</td>
+      <td>0.031321</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#Find the right number of clusters
+import matplotlib.pyplot as plt
+%matplotlib inline
+plt.figure(figsize=(10,6))
+plt.plot(df_Norm.Cluster_Numbers, df_Norm.Error_Term, marker = "D", color='blue')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Inertia')
+plt.show()
+```
+
+
+![png](output_7_0.png)
+
+
+
+```python
+kmeans =KMeans(n_clusters = 3, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
+y_kmeans = kmeans.fit_predict(X_Norm)
+y_kmeans
+```
+
+
+
+
+    array([0, 1, 2, 1, 2, 2, 1, 1, 1, 0, 2, 2, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2,
+           2, 1, 2, 1, 0, 1, 1, 2, 0, 0, 1, 2, 2, 1, 1, 1, 0, 0, 2, 1, 2, 2,
+           0, 1, 1, 0, 1, 2, 1, 1, 0, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 2,
+           0, 1, 0, 1, 1, 1, 2, 1, 0, 0, 2, 2, 2, 2, 1, 2, 2, 2, 0, 1, 0, 2,
+           1, 1, 1, 1, 1, 2, 0, 1, 2, 1, 2, 0, 2, 1, 2, 2, 1, 2, 1, 0, 1, 1,
+           0, 1, 1, 1, 2, 1, 2, 2, 0, 0, 1, 1, 0, 2, 1, 1, 2, 2, 2, 2, 2, 2,
+           1, 2, 2, 1, 2, 1, 1, 2, 1, 0, 1, 2, 0, 2, 2, 2, 0, 2, 1, 2, 1, 1,
+           0, 2, 2, 2, 0, 2, 1, 1, 2, 1, 0, 0, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1,
+           1, 2, 1, 2, 0, 2, 1, 2, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 1, 2, 1, 0,
+           2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 0, 2, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1,
+           1, 2, 2, 2, 2, 2, 1, 0, 2, 1, 2, 1, 1, 1, 2, 1, 2, 2, 2, 0, 1, 0,
+           0, 1, 2, 1, 1, 1, 0, 1, 2, 2, 2, 1, 0, 0, 0, 0, 2, 1, 0, 1, 2, 2,
+           2, 2, 0, 1, 1, 0, 0, 2, 2, 1, 1, 1, 1, 2, 2, 1, 0, 2, 2, 0, 1, 2,
+           2, 0, 1, 1, 2, 1, 2, 1, 2, 1, 0, 2, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2,
+           0, 0, 2, 0, 0, 2, 1, 0, 2, 2, 0, 1, 1, 1, 1, 0, 2, 1, 0, 1, 2, 0,
+           1, 2, 0, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 0, 0, 2, 1, 2, 1, 1, 1,
+           1, 2, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 2, 0, 2, 2, 2, 1, 1, 2, 1, 1,
+           1, 0, 1, 0, 2, 0, 1, 2, 2, 1, 1, 2, 1, 0, 2, 1, 1, 2, 0, 2, 1, 2,
+           1, 0, 0, 2, 1, 2, 2, 2, 2, 1, 0, 0, 0, 2, 1, 2, 2, 0, 2, 1, 2, 1,
+           1, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 0, 0, 1, 0, 1, 0, 2, 1, 1, 1,
+           2, 0, 2, 0, 2, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 2, 0, 0, 1, 1, 1, 1,
+           1, 2, 1, 0, 0, 0, 0, 1, 2, 0, 2, 0, 1, 2, 2, 2, 0, 2, 2, 2, 2, 2,
+           1, 0, 2, 2, 1, 1, 2, 0, 1, 1, 0, 2, 1, 1, 1, 2, 0, 1, 1, 1, 1, 2,
+           0, 0, 2, 1, 1, 0, 0, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1,
+           1, 2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 1, 2, 1, 2, 2, 0, 2, 1, 0,
+           2, 1, 1, 0, 2, 1, 2, 0, 0, 2, 0, 2, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0,
+           2, 0, 1, 1, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 1, 2, 1, 0, 1,
+           0, 2, 0, 0, 2, 0, 1, 0, 1, 1, 1, 2, 1, 1, 2, 2, 1, 2, 0, 1, 1, 2,
+           1, 1, 2, 2, 0, 1, 1, 0, 0, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 0, 1, 2,
+           2, 2, 2, 2, 1, 0, 2, 0, 0, 0, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1,
+           1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 2, 2, 2, 0, 1, 2, 1,
+           2, 0, 2, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 0, 0, 0])
+
+
+
+
+```python
+Supermarket_Norm['Cluster'] = y_kmeans
+Supermarket_Norm.head(10)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id_Norm</th>
+      <th>AVG_Actual_price_12_Norm</th>
+      <th>Purchase_Value_Norm</th>
+      <th>No_of_Items_Norm</th>
+      <th>Total_Discount_Norm</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION_Norm</th>
+      <th>Selling_Price_Peritem_Norm</th>
+      <th>Profit_Peritem_Norm</th>
+      <th>Cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+      <td>0.027813</td>
+      <td>0.003816</td>
+      <td>0.017544</td>
+      <td>0.005367</td>
+      <td>0.909091</td>
+      <td>0.013928</td>
+      <td>0.159833</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.000995</td>
+      <td>0.254651</td>
+      <td>0.135351</td>
+      <td>0.087719</td>
+      <td>0.112012</td>
+      <td>0.090909</td>
+      <td>0.414171</td>
+      <td>0.477880</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.002985</td>
+      <td>0.349536</td>
+      <td>0.023044</td>
+      <td>0.005848</td>
+      <td>0.006423</td>
+      <td>0.272727</td>
+      <td>0.214485</td>
+      <td>0.185038</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.006965</td>
+      <td>0.451766</td>
+      <td>0.044751</td>
+      <td>0.011696</td>
+      <td>0.007412</td>
+      <td>0.000000</td>
+      <td>0.277623</td>
+      <td>0.192363</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.007960</td>
+      <td>0.241100</td>
+      <td>0.110382</td>
+      <td>0.081871</td>
+      <td>0.028995</td>
+      <td>0.454545</td>
+      <td>0.186258</td>
+      <td>0.222217</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.008955</td>
+      <td>0.072288</td>
+      <td>0.029338</td>
+      <td>0.064327</td>
+      <td>0.037975</td>
+      <td>0.545455</td>
+      <td>0.150418</td>
+      <td>0.289495</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.009950</td>
+      <td>0.163053</td>
+      <td>0.048656</td>
+      <td>0.105263</td>
+      <td>0.033469</td>
+      <td>0.000000</td>
+      <td>0.101363</td>
+      <td>0.174059</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.010945</td>
+      <td>0.224046</td>
+      <td>0.122969</td>
+      <td>0.093567</td>
+      <td>0.026131</td>
+      <td>0.181818</td>
+      <td>0.169572</td>
+      <td>0.213857</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.011940</td>
+      <td>0.045101</td>
+      <td>0.006096</td>
+      <td>0.017544</td>
+      <td>0.014184</td>
+      <td>0.000000</td>
+      <td>0.114206</td>
+      <td>0.265017</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.012935</td>
+      <td>0.278376</td>
+      <td>0.027604</td>
+      <td>0.011696</td>
+      <td>0.007399</td>
+      <td>0.727273</td>
+      <td>0.181058</td>
+      <td>0.192148</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].max(), Supermarket_Norm['Profit_Peritem_Norm'].max()
+```
+
+
+
+
+    (0.9999999999999999, 1.0)
+
+
+
+
+```python
+Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].min(), Supermarket_Norm['Profit_Peritem_Norm'].min()
+```
+
+
+
+
+    (0.0, 0.0)
+
+
+
+
+```python
+from sklearn.cluster import KMeans
+num_of_clusters = range(0,3)
+numofcluster = []
+Customer_id=[]
+Number_of_cust=[]
+Percentage=[]
+
+for x in num_of_clusters:
+    
+    Customer_id.append(Supermarket_Norm[Supermarket_Norm['Cluster'] == x].index.get_values())
+    Number_of_cust.append(len((Supermarket_Norm[Supermarket_Norm['Cluster'] == x].get_values())))
+    Percentage.append(len((Supermarket_Norm[Supermarket_Norm['Cluster'] == x].get_values()))/len(Supermarket_Norm)*100)
+    numofcluster.append(x+1)
+
+df_3_Norm = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id, "Number_Of_Customer":Number_of_cust, "Percentage_Of_Customer":Percentage})
+df_3_Norm
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster_Numbers</th>
+      <th>Cust_id</th>
+      <th>Number_Of_Customer</th>
+      <th>Percentage_Of_Customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>[0, 9, 26, 30, 31, 38, 39, 44, 47, 52, 66, 68,...</td>
+      <td>140</td>
+      <td>19.943020</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 3, 6, 7, 8, 12, 13, 16, 17, 18, 19, 23, 25...</td>
+      <td>301</td>
+      <td>42.877493</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>[2, 4, 5, 10, 11, 14, 15, 20, 21, 22, 24, 29, ...</td>
+      <td>261</td>
+      <td>37.179487</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# Visualizing the clusters
+plt.figure(figsize=(10,6))
+plt.scatter(X_Norm[y_kmeans == 0,0],X_Norm[y_kmeans == 0,1], s = 50, c='red',label='Cluster1 ')
+plt.scatter(X_Norm[y_kmeans == 1,0],X_Norm[y_kmeans == 1,1], s = 50, c='blue',label='Cluster2 ')
+plt.scatter(X_Norm[y_kmeans == 2,0],X_Norm[y_kmeans == 2,1], s = 50, c='green',label='Cluster3 ')
+
+
+plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1], s=200, c='indigo', label='Centroids',marker='*')
+plt.title('Cluster of Clients')
+plt.xlabel('MONTH_SINCE_LAST_TRANSACTION_Norm')
+plt.ylabel('Profit_Peritem_Norm',)
+plt.legend()
+plt.show()
+```
+
+
+![png](output_13_0.png)
+
+
+
+```python
+from sklearn.cluster import KMeans
+num_of_clusters = range(0,3)
+numofcluster = []
+Customer_id=[]
+Number_of_cust=[]
+Percentage=[]
+
+for x in num_of_clusters:
+    
+    Customer_id.append(Supermarket[Supermarket['Cluster'] == x].index.get_values())
+    Number_of_cust.append(len((Supermarket[Supermarket['Cluster'] == x].get_values())))
+    Percentage.append(len((Supermarket[Supermarket['Cluster'] == x].get_values()))/len(Supermarket)*100)
+    numofcluster.append(x+1)
+
+df_3 = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id, "Number_Of_Customer":Number_of_cust, "Percentage_Of_Customer":Percentage})
+df_3
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster_Numbers</th>
+      <th>Cust_id</th>
+      <th>Number_Of_Customer</th>
+      <th>Percentage_Of_Customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>[0, 9, 26, 30, 31, 38, 39, 44, 47, 52, 66, 68,...</td>
+      <td>140</td>
+      <td>19.943020</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 3, 6, 7, 8, 12, 13, 16, 17, 18, 19, 23, 25...</td>
+      <td>301</td>
+      <td>42.877493</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>[2, 4, 5, 10, 11, 14, 15, 20, 21, 22, 24, 29, ...</td>
+      <td>261</td>
+      <td>37.179487</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+from sklearn.cluster import KMeans
+k_means = KMeans(n_clusters=3, init='k-means++', random_state=5000)
+k_means.fit(Supermarket[['MONTH_SINCE_LAST_TRANSACTION','Profit_Peritem']])
+fig = plt.figure(figsize=(10,6))
+plt.scatter(Supermarket['MONTH_SINCE_LAST_TRANSACTION'],Supermarket['Profit_Peritem'],50,c=k_means.labels_, alpha=0.8)
+plt.xlabel('MONTH_SINCE_LAST_TRANSACTION')
+plt.ylabel('Profit_Peritem')
+#plt.legend()
+#[plt.text(row.MONTH_SINCE_LAST_TRANSACTION, row.AVG_Actual_price_12, row.Cust_id)]
+#[plt.text(row.MONTH_SINCE_LAST_TRANSACTION, row.AVG_Actual_price_12, row.Cust_id) for row in Supermarket.intertuples()]
+plt.show()
+```
+
+
+![png](output_15_0.png)
+
+
+
+```python
+Supermarket.drop('Cluster',axis=1,inplace=True)
+```
+
+
+```python
+Supermarket.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cust_id</th>
+      <th>AVG_Actual_price_12</th>
+      <th>Purchase_Value</th>
+      <th>No_of_Items</th>
+      <th>Total_Discount</th>
+      <th>MONTH_SINCE_LAST_TRANSACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>300.000000</td>
+      <td>1200.00</td>
+      <td>4</td>
+      <td>0.00</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2563.282500</td>
+      <td>41012.52</td>
+      <td>16</td>
+      <td>78737.48</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>3510.000000</td>
+      <td>7020.00</td>
+      <td>2</td>
+      <td>780.00</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>4530.000000</td>
+      <td>13590.00</td>
+      <td>3</td>
+      <td>1510.00</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9</td>
+      <td>2428.076923</td>
+      <td>33455.00</td>
+      <td>15</td>
+      <td>17445.00</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
