@@ -899,9 +899,12 @@ plt.show()
 
 
 
+############################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@########################################
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##################################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-#################################################
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+To explore more, a new variable has been derived from the dataset **Supermarket** to figure out the profit of the supermarket.
+
 
 Importing dataset again in a new dataframe called **Supermarket**
 
@@ -1063,7 +1066,7 @@ Supermarket.head()
 </div>
 
 
-The new updated dataframe **Supermarket** is now been normalized using below python script.
+The new updated dataframe **Supermarket** is now been normalized using below python script. So the value of the column **Selling_Price_Peritem_Norm** and **Profit_Peritem_Norm** is also normalized in **Supermarket_Norm** dataset.
 
 ```python
 from sklearn import preprocessing
@@ -1283,6 +1286,7 @@ plt.show()
 ![png](output_7_0.png)
 
 
+So the Kmeans clustering algorithm has been run for normalized X e.g **X_Norm** array for **cluster number 3** for 300 iterations and eventually been mapped with the data of **Supermarket_Norm** dataset.
 
 ```python
 kmeans =KMeans(n_clusters = 3, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
@@ -1471,18 +1475,20 @@ Supermarket_Norm.head(10)
 </div>
 
 
+The max and the min value of the normalized columns of **MONTH_SINCE_LAST_TRANSACTION** and **Profit_Peritem** have been calculated
 
 
 ```python
 Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].max(), Supermarket_Norm['Profit_Peritem_Norm'].max()
+   (0.9999999999999999, 1.0)
 ```
-    (0.9999999999999999, 1.0)
+
 ```python
 Supermarket_Norm['MONTH_SINCE_LAST_TRANSACTION_Norm'].min(), Supermarket_Norm['Profit_Peritem_Norm'].min()
-```
     (0.0, 0.0)
+```
 
-
+A new dataframe been created called **df_3_Norm** been created.
 
 
 ```python
@@ -1504,23 +1510,6 @@ df_3_Norm = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id,
 df_3_Norm
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1558,6 +1547,7 @@ df_3_Norm
 </div>
 
 
+Below is the python code and the graph of **X_Norm** for the columns **MONTH_SINCE_LAST_TRANSACTION_Norm** and **Profit_Peritem_Norm**
 
 
 ```python
@@ -1580,6 +1570,10 @@ plt.show()
 ![png](output_13_0.png)
 
 
+From the above graph it can be concluded that the normalized value of **MONTH_SINCE_LAST_TRANSACTION_Norm** and **Profit_Peritem_Norm** can be clustered in **3** main segments.
+
+
+The same way a new dataframe has been created called **df_3** and it is found that the number of customers distribution is same as **df_3_Norm** dataset.
 
 ```python
 from sklearn.cluster import KMeans
@@ -1600,23 +1594,6 @@ df_3 = pd.DataFrame({"Cluster_Numbers":numofcluster, "Cust_id":Customer_id, "Num
 df_3
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1654,7 +1631,7 @@ df_3
 </div>
 
 
-
+**MONTH_SINCE_LAST_TRANSACTION** and **Profit_Peritem** columns are plotted in **Supermarket** dataset and it is found that there is a clear segmentation of **3** types of clusters i.e. **Tightwads**, **Average Spenders**, and **Spendthrifts** present in the dataframe.
 
 ```python
 from sklearn.cluster import KMeans
@@ -1664,106 +1641,11 @@ fig = plt.figure(figsize=(10,6))
 plt.scatter(Supermarket['MONTH_SINCE_LAST_TRANSACTION'],Supermarket['Profit_Peritem'],50,c=k_means.labels_, alpha=0.8)
 plt.xlabel('MONTH_SINCE_LAST_TRANSACTION')
 plt.ylabel('Profit_Peritem')
-#plt.legend()
-#[plt.text(row.MONTH_SINCE_LAST_TRANSACTION, row.AVG_Actual_price_12, row.Cust_id)]
-#[plt.text(row.MONTH_SINCE_LAST_TRANSACTION, row.AVG_Actual_price_12, row.Cust_id) for row in Supermarket.intertuples()]
 plt.show()
 ```
 
 
 ![png](output_15_0.png)
-
-
-
-```python
-Supermarket.drop('Cluster',axis=1,inplace=True)
-```
-
-
-```python
-Supermarket.head()
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Cust_id</th>
-      <th>AVG_Actual_price_12</th>
-      <th>Purchase_Value</th>
-      <th>No_of_Items</th>
-      <th>Total_Discount</th>
-      <th>MONTH_SINCE_LAST_TRANSACTION</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>300.000000</td>
-      <td>1200.00</td>
-      <td>4</td>
-      <td>0.00</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>2563.282500</td>
-      <td>41012.52</td>
-      <td>16</td>
-      <td>78737.48</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4</td>
-      <td>3510.000000</td>
-      <td>7020.00</td>
-      <td>2</td>
-      <td>780.00</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>8</td>
-      <td>4530.000000</td>
-      <td>13590.00</td>
-      <td>3</td>
-      <td>1510.00</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>9</td>
-      <td>2428.076923</td>
-      <td>33455.00</td>
-      <td>15</td>
-      <td>17445.00</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 
 
