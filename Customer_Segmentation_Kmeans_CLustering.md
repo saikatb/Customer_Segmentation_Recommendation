@@ -2,7 +2,7 @@ While doing Customer segmentation and Recommendation below steps has been follow
 
 1.  **Extrapolatory Data Analysis or EDA**
 2.  **Data Preprocessing**
-3.  **K-means clustering**
+3.  **K-means Clustering**
 4.  **Customer Segmentation**
 5.  **Recommendation**
 
