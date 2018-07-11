@@ -1644,8 +1644,4 @@ plt.ylabel('Profit_Peritem')
 plt.show()
 ```
 
-
 ![png](output_15_0.png)
-
-
-
